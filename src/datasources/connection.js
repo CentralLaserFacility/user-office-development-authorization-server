@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const Knex = require('knex');
-console.log(process.env.DATABASE_URL,"MY DATABASE name da psycho $$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
 const db = Knex({
   client: 'postgresql',
   connection: process.env.DATABASE_URL,
@@ -15,9 +15,21 @@ const db = Knex({
       );
     },
   },
+  log: {
+    warn(message) {
+      console.warn(message,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");
+    },
+    error(message) {
+      console.error("er",message,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");
+    },
+    deprecate(message) {
+      console.warn('Deprecation warning: ', message, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");
+    },
+    debug(message) {
+      console.debug("dg",message,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");  // You can customize this to filter out unnecessary logs
+    },
+  },
 });
-
-console.log(db,"see my DB %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
 db.on('query-error', (error, obj) => {
   console.error('QUERY ERROR', {

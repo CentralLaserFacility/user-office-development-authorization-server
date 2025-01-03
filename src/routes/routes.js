@@ -109,6 +109,7 @@ module.exports = (app, provider) => {
     body,
     async (req, res, next) => {
       try {
+        console.log(`what's my name? whats my name?`)
         const {
           prompt: { name },
         } = await provider.interactionDetails(req, res);

@@ -17,6 +17,8 @@ const db = Knex({
   },
 });
 
+console.log(db,"see my DB %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
 db.on('query-error', (error, obj) => {
   console.error('QUERY ERROR', {
     message: error?.message,

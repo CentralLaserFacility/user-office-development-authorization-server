@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const Knex = require('knex');
-
+console.log(process.env.DATABASE_URL,"MY DATABASE name da psycho $$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 const db = Knex({
   client: 'postgresql',
   connection: process.env.DATABASE_URL,

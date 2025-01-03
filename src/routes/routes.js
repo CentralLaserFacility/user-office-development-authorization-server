@@ -64,7 +64,7 @@ module.exports = (app, provider) => {
       } = await provider.interactionDetails(req, res);
 
       const client = await provider.Client.find(params.client_id);
-console.log("iam successfull!#################################################")
+
       switch (prompt.name) {
         case 'login': {
           return res.render('login', {

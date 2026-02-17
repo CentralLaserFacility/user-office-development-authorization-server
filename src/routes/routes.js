@@ -109,9 +109,11 @@ module.exports = (app, provider) => {
     body,
     async (req, res, next) => {
       try {
+        console.log(`what's my name? whats my name?`)
         const {
           prompt: { name },
         } = await provider.interactionDetails(req, res);
+        console.log(`My name is ${name}, ${name} ki jawaani !!!!`)
         assert.equal(name, 'login');
         const account = await Account.findByLogin(
           req.body.login,
@@ -123,6 +125,7 @@ module.exports = (app, provider) => {
             accountId: account.accountId,
           },
         };
+        console.log(result,account, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
         await provider.interactionFinished(req, res, result, {
           mergeWithLastSubmission: false,

@@ -4,7 +4,7 @@ require('dotenv').config();
 const path = require('path');
 
 const express = require('express'); // eslint-disable-line import/no-unresolved
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const { Provider } = require('oidc-provider'); // require('oidc-provider');
 
 const Account = require('./models/Account');
@@ -17,20 +17,21 @@ configuration.findAccount = Account.findAccount;
 
 const app = express();
 
-const directives = helmet.contentSecurityPolicy.getDefaultDirectives();
-delete directives['form-action'];
-directives['script-src'] = ["'unsafe-inline'"];
-directives['script-src-attr'] = ["'unsafe-inline'"];
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      useDefaults: false,
-      directives,
-    },
-  }),
-);
+// const directives = helmet.contentSecurityPolicy.getDefaultDirectives();
+// delete directives['form-action'];
+// directives['script-src'] = ["'unsafe-inline'"];
+// directives['script-src-attr'] = ["'unsafe-inline'"];
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: {
+//       useDefaults: false,
+//       directives,
+//     },
+//   }),
+// );
 
-const urlFrom = (urlObject) => String(Object.assign(new URL('http://a.com'), urlObject));
+const urlFrom = (urlObject) =>
+  String(Object.assign(new URL('http://a.com'), urlObject));
 
 // If hostname is not equal to the ISSUER and the endpoint is /.well-known then
 // we need to update the database with the correct settings.
@@ -40,8 +41,8 @@ const updateExternalAuthSettingsOnFinish = (req, res, next) => {
       urlFrom({
         protocol: req.protocol,
         host: req.get('host'),
-      }) !== ISSUER
-      && req.path === '/.well-known/openid-configuration'
+      }) !== ISSUER &&
+      req.path === '/.well-known/openid-configuration'
     ) {
       // Timeout is needed because the setting gets updated by the application
       // directly after the response is returned and we need to wait for a while

@@ -7,6 +7,8 @@ module.exports = {
       redirect_uris: [
         'http://localhost:3000/external-auth',
         'http://localhost:33000/external-auth',
+        'http://pms-dev.stfc.ac.uk/external-auth',
+        'http://pms-dev-lasers4eu.stfc.ac.uk/external-auth',
       ],
     },
   ],

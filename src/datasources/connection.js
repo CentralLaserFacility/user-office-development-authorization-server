@@ -15,6 +15,20 @@ const db = Knex({
       );
     },
   },
+  log: {
+    warn(message) {
+      console.warn(message,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");
+    },
+    error(message) {
+      console.error("er",message,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");
+    },
+    deprecate(message) {
+      console.warn('Deprecation warning: ', message, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");
+    },
+    debug(message) {
+      console.debug("dg",message,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@^");  // You can customize this to filter out unnecessary logs
+    },
+  },
 });
 
 db.on('query-error', (error, obj) => {

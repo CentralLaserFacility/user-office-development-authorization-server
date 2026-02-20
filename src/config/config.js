@@ -10,6 +10,7 @@ module.exports = {
         'http://pms-dev.stfc.ac.uk/external-auth',
         'http://pms-dev-lasers4eu.stfc.ac.uk/external-auth',
       ],
+      post_logout_redirect_uris: ['http://pms-dev-lasers4eu.stfc.ac.uk'],
     },
   ],
   pkce: {

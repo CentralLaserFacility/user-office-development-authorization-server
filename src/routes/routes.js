@@ -14,21 +14,22 @@ const body = urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
 
 const keys = new Set();
-const debug = (obj) => querystring.stringify(
-  Object.entries(obj).reduce((acc, [key, value]) => {
-    keys.add(key);
-    if (isEmpty(value)) return acc;
-    acc[key] = inspect(value, { depth: null });
-    return acc;
-  }, {}),
-  '<br/>',
-  ': ',
-  {
-    encodeURIComponent(value) {
-      return keys.has(value) ? `<strong>${value}</strong>` : value;
+const debug = (obj) =>
+  querystring.stringify(
+    Object.entries(obj).reduce((acc, [key, value]) => {
+      keys.add(key);
+      if (isEmpty(value)) return acc;
+      acc[key] = inspect(value, { depth: null });
+      return acc;
+    }, {}),
+    '<br/>',
+    ': ',
+    {
+      encodeURIComponent(value) {
+        return keys.has(value) ? `<strong>${value}</strong>` : value;
+      },
     },
-  },
-);
+  );
 
 module.exports = (app, provider) => {
   const {
@@ -59,9 +60,8 @@ module.exports = (app, provider) => {
 
   app.get('/interaction/:uid', setNoCache, async (req, res, next) => {
     try {
-      const {
-        uid, prompt, params, session,
-      } = await provider.interactionDetails(req, res);
+      const { uid, prompt, params, session } =
+        await provider.interactionDetails(req, res);
 
       const client = await provider.Client.find(params.client_id);
 
@@ -109,11 +109,9 @@ module.exports = (app, provider) => {
     body,
     async (req, res, next) => {
       try {
-        console.log(`what's my name? whats my name?`)
         const {
           prompt: { name },
         } = await provider.interactionDetails(req, res);
-        console.log(`My name is ${name}, ${name} ki jawaani !!!!`)
         assert.equal(name, 'login');
         const account = await Account.findByLogin(
           req.body.login,
@@ -125,7 +123,6 @@ module.exports = (app, provider) => {
             accountId: account.accountId,
           },
         };
-        console.log(result,account, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
         await provider.interactionFinished(req, res, result, {
           mergeWithLastSubmission: false,

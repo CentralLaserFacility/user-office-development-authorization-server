@@ -4,7 +4,7 @@ require('dotenv').config();
 const path = require('path');
 
 const express = require('express'); // eslint-disable-line import/no-unresolved
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const { Provider } = require('oidc-provider'); // require('oidc-provider');
 
 const Account = require('./models/Account');
@@ -17,18 +17,18 @@ configuration.findAccount = Account.findAccount;
 
 const app = express();
 
-// const directives = helmet.contentSecurityPolicy.getDefaultDirectives();
-// delete directives['form-action'];
-// directives['script-src'] = ["'unsafe-inline'"];
-// directives['script-src-attr'] = ["'unsafe-inline'"];
-// app.use(
-//   helmet({
-//     contentSecurityPolicy: {
-//       useDefaults: false,
-//       directives,
-//     },
-//   }),
-// );
+const directives = helmet.contentSecurityPolicy.getDefaultDirectives();
+delete directives['form-action'];
+directives['script-src'] = ["'unsafe-inline'"];
+directives['script-src-attr'] = ["'unsafe-inline'"];
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: false,
+      directives,
+    },
+  }),
+);
 
 const urlFrom = (urlObject) =>
   String(Object.assign(new URL('http://a.com'), urlObject));
